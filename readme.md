@@ -78,8 +78,5 @@ bash
 sudo systemctl status bashrunner.service
 BashRunner will now start automatically at boot.
 
-## License
-Copyleft.
-
 ## Contributing
 Contributions to BashRunner are welcome. Please ensure your pull requests are well-described.
