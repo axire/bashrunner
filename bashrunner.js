@@ -1,27 +1,16 @@
 // Bashrunner 0.0.1
-
 const { execSync } = require('child_process');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const figlet = require('figlet');
 const express = require('express');
 const app = express();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+//const server = require('http').createServer(app);
 const port = 3000;
-/*
-Typically, when you're not using socket.io (or similar WebSocket libraries), your 
-Express app can be started simply with app.listen(). But with socket.io, you need 
-to pass the HTTP server object to socket.io for it to hook into the same HTTP server 
-that Express uses.
-*/
-
 const path = require('path');
 app.use(express.json());
 
 let scriptProcess = null;
-//const scriptName = 'ComfyUI'; // Replace with your script name
-//const scriptPath = 'bashrunner_gpu.sh'; // Replace with your script path
 let scriptName = 'File writing script'; // Replace with your script name
 let scriptPath = './writingtostdout.sh'; // Replace with your script path
 let logFilePath = scriptPath + '-bashrunner.log'; // Define log file path
@@ -156,7 +145,7 @@ app.get('/', (req, res) => {
         
         <table><tr>
         <td><pre2>Script path: </pre2></td>
-        <td>${scriptPath}</td>
+        <td id="scrpath">${scriptPath}</td>
         <td><input type="text" id="newScriptPath" placeholder="New Script Path" value="${scriptPath}"></td>
         </tr><tr>
         <td><pre2>Description: </pre2></td>
@@ -297,11 +286,15 @@ app.get('/', (req, res) => {
                     scriptPathInput.style.backgroundColor = ""; // Reset background
                     scriptNameInput.value = newScriptName;
                     scriptPathInput.value = newScriptPath;
+
+                    document.getElementById('scrpath').innerText = newScriptPath;
+
                 } else {
                     scriptPathInput.style.backgroundColor = "pink"; // Indicate error
                 }
                 updateLog(); // Optionally update the log
             });
+            updateOutput();
         }
          
         function startPeriodicUpdate() {
@@ -371,7 +364,7 @@ app.get('/', (req, res) => {
             });
             
             scriptProcess.on('close', (code) => {
-                console.log(`Child process exited with code ${code}`);
+                logAction('Child process exited with code ' + code);              
                 // Handle script completion
             });
             
@@ -439,5 +432,5 @@ if (fs.existsSync(logFilePath)) {
 }
 
 // Start the server
-server.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(port, () => console.log(`Server running on port ${port}`));
 
