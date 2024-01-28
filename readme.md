@@ -25,12 +25,12 @@ BashRunner is a Node.js application for managing and monitoring bash scripts. It
 
 2. Install dependencies:
 
-bash
+```bash
 npm install
 
 3. Start the server:
 
-bash
+```bash
 npm start
 The server will start on http://localhost:3000.
 
@@ -43,13 +43,12 @@ Setting Up as a System Service
 ## To run BashRunner as a service on Ubuntu, follow these steps:
 Create a service file for systemd:
 
-bash
+```bash
 sudo nano /etc/systemd/system/bashrunner.service
 
 ### Add the following content to the service file:
 
-ini
-
+```ini
 [Unit]
 Description=BashRunner service
 After=network.target
