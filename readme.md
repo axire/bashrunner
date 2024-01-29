@@ -2,6 +2,9 @@
 
 BashRunner is a Node.js application for managing and monitoring bash scripts. It allows users to start, stop, and view the output of bash scripts through a web interface.
 
+## Screenshot
+[img]
+
 ## Features
 
 - Start and stop bash scripts from a web interface.

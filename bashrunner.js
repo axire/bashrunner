@@ -8,6 +8,7 @@ const app = express();
 //const server = require('http').createServer(app);
 const port = 3000;
 const path = require('path');
+
 app.use(express.json());
 
 let scriptProcess = null;
@@ -15,10 +16,7 @@ let scriptName = 'File writing script'; // Replace with your script name
 let scriptPath = './writingtostdout.sh'; // Replace with your script path
 let logFilePath = scriptPath + '-bashrunner.log'; // Define log file path
 let actionLog = []; // Log of actions
-
 let outputFilePath = scriptPath + '-script-output.log'; // File to store script output
-
-
 
 // Function to log action
 function logAction(action, pid = '') {
@@ -42,7 +40,6 @@ function getScriptRuntime(pid) {
     }
 }
 
-
 function isValidFile(filePath) {
     try {
         const fullPath = path.resolve(filePath); // Resolve the full path
@@ -53,7 +50,6 @@ function isValidFile(filePath) {
         return false;
     }
 }
-
 
 // Serve web interface
 app.get('/', (req, res) => {
@@ -137,10 +133,9 @@ app.get('/', (req, res) => {
         }
         </style>      
         
+        </head>   
         
-        
-        
-        </head>        <body>
+        <body>
         <!-- Your body content -->
         
         <table><tr>
@@ -218,9 +213,6 @@ app.get('/', (req, res) => {
         console.log(linkify("Another link: https://www.example.com/path"));
         console.log(linkify("Non-URL text should remain unchanged."));
         
-        // </script>
-        
-        // <script>
 
         let updateInterval;
         
@@ -347,19 +339,16 @@ app.get('/', (req, res) => {
             
             scriptProcess.stdout.on('data', (data) => {
                 fs.appendFileSync(outputFilePath, data.toString()); // Append output to file
-
                 // websocket
                 //io.emit('script-output', data.toString());
                 // Optionally, add this output to your log or send it to the client
-                
                 // possible debug tjoff
-                // console.log(`stdout: ${data}`);
-                
+                // console.log(`stdout: ${data}`);               
             });
             
             scriptProcess.stderr.on('data', (data) => {
                 //console.error(`stderr: ${data}`);
-                io.emit('script-error', data.toString());
+                //io.emit('script-error', data.toString());
                 // Handle or log error output
             });
             
@@ -373,7 +362,6 @@ app.get('/', (req, res) => {
         }
     });
     
-    // Stop script
     app.post('/stop', (req, res) => {
         if (scriptProcess) {
             logAction('stopping ' + scriptProcess.pid);
@@ -418,10 +406,7 @@ app.get('/', (req, res) => {
             res.status(400).json({ success: false, message: 'Invalid script path' });
         }
     });
-    
-    
 });
-
 
 // Read log from file on server start
 console.log("Bashrunner started. Looking for logfile...");
@@ -433,4 +418,3 @@ if (fs.existsSync(logFilePath)) {
 
 // Start the server
 app.listen(port, () => console.log(`Server running on port ${port}`));
-
