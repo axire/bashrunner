@@ -1,9 +1,9 @@
 # BashRunner
 
-BashRunner is a Node.js application for managing and monitoring bash scripts. It allows users to start, stop, and view the output of bash scripts through a web interface.
+`BashRunner` is a Node.js application for managing and monitoring bash scripts (running [ComfyUI](https://github.com/comfyanonymous/ComfyUI) and [Oogabooga](https://github.com/oobabooga/text-generation-webui)). It allows users to start, stop, and view the output of bash scripts through a web interface.
 
 ## Screenshot
-[img]
+![image](BashRunner2024-01-29__17-14-48.png)
 
 ## Features
 
@@ -15,26 +15,29 @@ BashRunner is a Node.js application for managing and monitoring bash scripts. It
 ## Installation
 
 ### Prerequisites
-
 - Node.js
 - npm (Node.js package manager)
 
 ### Steps
 
 1. Clone the repository:
-   ```bash
+   ``` bash
    git clone [your-repository-url]
    cd BashRunner
+   ```
 
 2. Install dependencies:
-   ```bash
+   ``` bash
    npm install
+   ```
 
 3. Start the server:
 
-   ```bash
+   ``` bash
    npm start
+   ```
    The server will start on http://localhost:3000.
+
 
 ## Usage
 Open a web browser and navigate to http://localhost:3000.
@@ -45,14 +48,14 @@ Setting Up as a System Service
 ## To run BashRunner as a service on Ubuntu, follow these steps
 Create a service file for systemd:
 
-   ```bash
+   ``` bash
+   npm start
    sudo nano /etc/systemd/system/bashrunner.service
-   
-   
-   
+   ```
+
 ### Add the following content to the service file:
 
-   ```bash
+   ``` ini
    [Unit]
    Description=BashRunner service
    After=network.target
@@ -67,20 +70,23 @@ Create a service file for systemd:
 
    [Install]
    WantedBy=multi-user.target
+   ```
 
 Replace /path/to/BashRunner with the actual path to your BashRunner directory. Set <your-username> and <your-group> to your preferred user and group.
 
 ### Enable and start the service:
 
-bash
+```bash
 sudo systemctl enable bashrunner.service
 sudo systemctl start bashrunner.service
+```
 
 ### Check the status of the service:
 
-bash
+```bash
 sudo systemctl status bashrunner.service
-BashRunner will now start automatically at boot.
+```
+`BashRunner` will now start automatically at boot.
 
 ## Contributing
 Contributions to BashRunner are welcome. Please ensure your pull requests are well-described.
